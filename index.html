@@ -61,6 +61,14 @@
             display: block;
             margin: 0 auto 20px;
         }
+        input {
+    width: 100%; /* Faz a caixa de texto ocupar 100% da largura disponível */
+    padding: 10px; /* Aumenta o espaçamento interno */
+    font-size: 16px; /* Aumenta o tamanho da fonte */
+    border: 2px solid #333; /* Coloca uma borda ao redor da caixa de texto */
+    border-radius: 5px; /* Torna os cantos arredondados */
+    box-sizing: border-box; /* Faz o padding ser incluído na largura total */
+}
     </style>
 </head>
 <body>
@@ -71,7 +79,7 @@
 
         <h1>SORTEADOR - INIMIGOS DO GOL</h1>
         
-        <p>Digite os nomes dos 18 jogadores, separados por vírgulas:</p>
+        <p style="color:#ffffff">Digite os nomes dos 18 jogadores, separados por vírgulas:</p>
         <input type="text" id="inputJogadores" placeholder="Ex: João, Pedro, Lucas, ...">
         <br><br>
         <button onclick="sortearTimes()">Sortear Times</button>
