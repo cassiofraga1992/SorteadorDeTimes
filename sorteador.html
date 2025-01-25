@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteador de Times</title>
+    <style>
+        body {
+            background-image: url('fundo.jpg'); /* Coloca a imagem 'fundo.jpg' como plano de fundo */
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #000000;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #000000;
+        }
+        .result {
+            margin-top: 20px;
+        }
+
+        /* Estilo da tabela */
+        table {
+            width: 100%;
+            margin-top: 30px;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #333;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #010702;
+            color: white;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+        
+        .logo {
+            height: 200px;
+            display: block;
+            margin: 0 auto 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Adicionando a imagem do logo -->
+        <img src="logo.png" alt="Logo da Pelada" class="logo">
+
+        <h1>SORTEADOR - INIMIGOS DO GOL</h1>
+        
+        <p>Digite os nomes dos 18 jogadores, separados por vírgulas:</p>
+        <input type="text" id="inputJogadores" placeholder="Ex: João, Pedro, Lucas, ...">
+        <br><br>
+        <button onclick="sortearTimes()">Sortear Times</button>
+
+        <!-- Tabela para mostrar os resultados -->
+        <div class="result" id="resultado">
+            <table id="timesTable">
+                <thead>
+                    <tr>
+                        <th>Time 1 </th>
+                        <th>Time 2 </th>
+                        <th>Time 3 </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="timesRow">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function sortearTimes() {
+            const input = document.getElementById('inputJogadores').value;
+            const jogadores = input.split(',').map(nome => nome.trim()).filter(nome => nome !== '');
+
+            // Verifica se temos exatamente 18 jogadores
+            if (jogadores.length !== 18) {
+                alert("Por favor, insira exatamente 18 jogadores.");
+                return;
+            }
+
+            // Embaralha os jogadores
+            for (let i = jogadores.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [jogadores[i], jogadores[j]] = [jogadores[j], jogadores[i]];
+            }
+
+            // Divide os jogadores em 3 times
+            const time1 = jogadores.slice(0, 6);
+            const time2 = jogadores.slice(6, 12);
+            const time3 = jogadores.slice(12, 18);
+
+            // Exibe os resultados na tabela
+            const timesRow = document.getElementById('timesRow');
+
+            // Cria as listas de jogadores para os 3 times
+            const time1List = time1.map(jogador => `<p>${jogador}</p>`).join('');
+            const time2List = time2.map(jogador => `<p>${jogador}</p>`).join('');
+            const time3List = time3.map(jogador => `<p>${jogador}</p>`).join('');
+
+            // Coloca os jogadores na tabela
+            timesRow.innerHTML = `
+                <td>${time1List}</td>
+                <td>${time2List}</td>
+                <td>${time3List}</td>
+            `;
+        }
+    </script>
+
+</body>
+</html>
